@@ -30,7 +30,6 @@
 
 (in-package :printfcl/elisp)
 
-;; Emacs lisp format support - here because convert-string is not exported
 (defclass elisp-converter (printfcl:standard-converter)
   ())
 
