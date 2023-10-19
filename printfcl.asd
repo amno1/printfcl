@@ -19,3 +19,9 @@
   :depends-on (#:printfcl #:local-time)
   :serial t
   :components ((:file "javatime")))
+
+(asdf:defsystem #:printfcl/elisp
+  :description "Support for Emacs Lisp format function"
+  :depends-on (#:printfcl)
+  :serial t
+  :components ((:file "emacs-lisp-format")))
