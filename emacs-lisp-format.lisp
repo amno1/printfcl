@@ -26,7 +26,10 @@
 (defpackage #:printfcl/elisp
   (:use #:cl #:printfcl)
   (:export #:elisp-converter
-           #:convert))
+           #:convert
+           #:el-format
+
+           #:*format-converter*))
 
 (in-package :printfcl/elisp)
 
@@ -40,5 +43,14 @@
 (defmethod convert ((converter elisp-converter) (cs (eql :|S|))
                     argument flags field-width precision)
   (printfcl::convert-string argument flags field-width precision #'prin1-to-string))
+
+(cl:defvar *format-converter* (make-instance 'printfcl/elisp:elisp-converter))
+
+;; just a very first-aid implementation
+;; based on printfcl: https://github.com/splittist/printfcl
+;; elisp format is closer to printf than cl-format, so this does as a band aid
+(defun el-format (format-string &rest objects)
+  (let ((printfcl:*converter* *format-converter*))
+    (apply #'printfcl:sprintf format-string objects)))
 
 ;;; emacs-lisp-format.lisp ends here
